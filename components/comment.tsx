@@ -21,7 +21,7 @@ export function Comment( { postId } : CommentPage ){
 
     const [lastResult, action] = useActionState(withIdSendComment, null);
     const [form, fields] = useForm({
-        // @ts-nocheck
+        //@ts-expect-error: see later
         lastResult,
         onValidate({formData}){
             return parseWithZod(formData, {schema: commentSchema})
@@ -57,7 +57,8 @@ export function Comment( { postId } : CommentPage ){
 
     return(
         <form
-            key={form.key} id={form.id} name={form.name} onSubmit={form.onSubmit} action={action as string}
+            {/* eslint-disable-next-line */}
+            key={form.key} id={form.id} name={form.name} onSubmit={form.onSubmit} action={/*@ts-ignore*/action}
             ref={ref}
             className="grid gap-2 p-6"
         >
