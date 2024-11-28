@@ -1,101 +1,144 @@
-import Image from "next/image";
+import { redirect, RedirectType } from "next/navigation";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import { SearchComponent } from "@/components/ui/search";
+import { Bird, TrophyIcon} from "lucide-react";
+import { ArrowDownIcon } from "@radix-ui/react-icons"
+import { getAllPosts, getFollowedUsers, getUsers, logout } from "@/app/actions";
+import { CreatePost } from "@/components/create-post";
+import { SubmitButton } from "@/components/submit-button";
+import { PostCard } from "@/components/post-card";
+import { Suspense } from "react";
+import { connection } from "next/server";
+import { Button } from "@/components/ui/button";
+import { Post, User } from "@/lib/types";
+import Loading from "@/app/loading";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { FollowButton } from "@/components/follow-button";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+export default async function Home() {
+    await connection();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    const cookieStore = await cookies();
+    const user = cookieStore.get({name: "token"});
+    const currentUser:{name:string, value:string} | undefined = cookieStore.get("user" as never)
+    if(!user) redirect("/login");
+
+    const dataPosts  = await getAllPosts();
+    const posts: Post[] = await dataPosts.data
+
+    if(!dataPosts.success) {
+        console.log("failed to fetch post informations");
+       return redirect("/login?session=expired", RedirectType.push)
+    }
+
+    const dataUsers = await getUsers()
+    const users: User[] = await dataUsers.data
+
+    if(!dataUsers.success) {
+        console.log("failed to fetch users");
+        return redirect("/login?session=expired", RedirectType.push)
+    }
+
+    const followedDataUsers = await getFollowedUsers()
+    const followedUsers: User[] = await followedDataUsers.data
+
+    if(!followedDataUsers.success) {
+        console.log("failed to fetch followed users");
+        return redirect("/login?session=expired", RedirectType.push)
+    }
+
+
+    return (
+        <main className="relative w-full">
+            <Suspense fallback={<Loading/>}>
+                <div className="sticky top-0 z-50 pt-6 pb-4 rounded-lg w-full bg-white">
+                    <div className="max-w-7xl mx-auto grid gap-5 sm:gap-10 px-2 sm:px-4">
+                        <Link href={"/"} className="flex sm:hidden items-center justify-center mt-2 sm:mt-4">
+                            <h1 className="font-bold text-primary text-xl">twotter</h1>
+                            <Bird className="text-primary"/>
+                        </Link>
+                        <div className="flex gap-6 items-start">
+                            <Link href={"/"} className="hidden sm:flex items-center mt-2 sm:mt-4">
+                                <h1 className="font-bold text-primary text-xl">twotter</h1>
+                                <Bird className="text-primary"/>
+                            </Link>
+                            <div className="flex justify-center max-w-3xl mx-auto w-full">
+                                <SearchComponent followedList={followedUsers} usersList={users} activeUser={currentUser?.value}/>
+                            </div>
+                            <Popover>
+                                <PopoverTrigger>
+                                    <Avatar className="relative sm:mt-4">
+                                        <AvatarImage src={`https://avatar.vercel.sh/${currentUser?.value}.svg?text=${currentUser?.value.slice(0,2).toUpperCase()}`}/>
+                                        <AvatarFallback>
+                                            {currentUser?.value.slice(0, 2)}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                </PopoverTrigger>
+                                <PopoverContent>
+                                    <p className="text-muted-foreground text-sm font-medium">
+                                        @{currentUser?.value}
+                                    </p>
+                                    <form action={logout as string} className="mt-2">
+                                        <SubmitButton text="Esci" className={"w-full"}/>
+                                    </form>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                        <CreatePost activeUser={currentUser?.value} />
+                    </div>
+                </div>
+                <div className="p-4 pb-6 pt-0 sm:p-6 sm:pt-0">
+                    <div className="sm:max-w-xl mx-auto grid gap-2">
+                        {
+                            posts.length == 0 &&
+                            <div className="p-6 border rounded-lg w-full">
+                                <div className="w-full mx-auto relative">
+                                    <img src={"https://error404.fun/img/full-preview/1x/9.png"}
+                                         className="object-cover"
+                                         alt="not found"
+                                    />
+                                </div>
+                                <h2 className="text-7xl font-semibold text-primary text-center">Oh no...</h2>
+                                <p className="text-sm text-muted-foreground text-center mt-5">
+                                    Sembra che tu non segua nessuno e che tu non abbia mai creato un post!<br/>
+                                    Ti suggerisco di aggiungere &lsquo;tomg55555&lsquo; tra i seguiti
+                                </p>
+                                <ArrowDownIcon className="mx-auto text-muted-foreground mt-5"/>
+                                <div className="w-full mt-5 flex justify-center">
+                                    <FollowButton userId={19} text={"Segui tomg55555"} className="py-2 px-8"/>
+                                </div>
+                            </div>
+                        }
+                        {
+                            posts.map((item,_)=>((
+                                    <div key={_}>
+                                        <PostCard activeUser={currentUser?.value} post={item}/>
+                                        {
+                                            (_+1) % 5 === 0 ?
+                                                <div className="mt-2 rounded-lg bg-slate-600 p-6 text-white flex justify-between items-center">
+                                                    <div>
+                                                        <h2 className="font-semibold text-xl">
+                                                            Impressed?
+                                                        </h2>
+                                                        <p className="">Imagine what we could achieve working together!</p>
+                                                    </div>
+                                                    <Button asChild variant="secondary">
+                                                        <Link href={"mailto:tommasogarzaro@gmail.com"}>
+                                                            Hire me!
+                                                            <TrophyIcon/>
+                                                        </Link>
+                                                    </Button>
+                                                </div> : <></>
+                                        }
+                                    </div>
+                                )
+                            ))
+                        }
+                    </div>
+                </div>
+            </Suspense>
+        </main>
+    );
 }
