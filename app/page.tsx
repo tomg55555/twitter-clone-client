@@ -81,7 +81,8 @@ export default async function Home() {
                                     <p className="text-muted-foreground text-sm font-medium">
                                         @{currentUser?.value}
                                     </p>
-                                    <form action={logout as string} className="mt-2">
+                                    {/* eslint-disable-next-line */}
+                                    <form action={/*@ts-ignore*/logout} className="mt-2">
                                         <SubmitButton text="Esci" className={"w-full"}/>
                                     </form>
                                 </PopoverContent>
