@@ -42,7 +42,10 @@ export default function SignUpPage(){
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={action as undefined} className="grid gap-2">
+                    {
+                        //@ts-expect-error see later
+                    }
+                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error see later*/action} className="grid gap-2">
                         {lastResult?.success === false &&
                             <p className="text-red-500 text-sm text-right">{lastResult.message}</p>
                         }
