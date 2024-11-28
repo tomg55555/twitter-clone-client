@@ -1,12 +1,11 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 import {useActionState, useEffect, useRef, useState} from "react";
 import { SendComment } from "@/app/actions";
 import {useForm} from "@conform-to/react";
 import {parseWithZod} from "@conform-to/zod";
-import {commentSchema, messageSchema} from "@/lib/zodSchemas";
+import { commentSchema } from "@/lib/zodSchemas";
 import {SubmitButton} from "@/components/submit-button";
 import CircularProgress from "@/components/ui/circular-progress";
 
@@ -48,6 +47,7 @@ export function Comment( { postId } : CommentPage ){
         growers.forEach((grower) => {
             const textarea = grower.querySelector("textarea");
             textarea.addEventListener("input", () => {
+
                 grower.dataset.replicatedValue = textarea.value;
             });
         });

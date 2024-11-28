@@ -1,10 +1,5 @@
 import { z } from "zod";
 
-// Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
-const passwordValidation = new RegExp(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/
-);
-
 export const userSchema = z.object({
     username: z.string().min(1).max(50),
     email: z.string().email("email non valida"),
