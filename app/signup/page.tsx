@@ -17,7 +17,7 @@ export default function SignUpPage(){
 
     const [lastResult, action] = useActionState(createUser, null);
     const [form, fields] = useForm({
-        //@ts-expect-error see later
+        //@ts-expect-error: see later
         lastResult,
         onValidate({formData}){
             return parseWithZod(formData, {schema: userSchema})
@@ -45,7 +45,7 @@ export default function SignUpPage(){
                     {
                         //@ts-expect-error see later
                     }
-                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error see later*/action} className="grid gap-2">
+                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error: see later*/action} className="grid gap-2">
                         {lastResult?.success === false &&
                             <p className="text-red-500 text-sm text-right">{lastResult.message}</p>
                         }

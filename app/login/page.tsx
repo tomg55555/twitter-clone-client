@@ -34,7 +34,7 @@ export default function LoginPage(){
 
     const [lastResult, action] = useActionState(login, null);
     const [form, fields] = useForm({
-        //@ts-expect-error see later
+        //@ts-expect-error: see later
         lastResult,
         onValidate({formData}){
             return parseWithZod(formData, {schema: loginSchema})
@@ -59,7 +59,7 @@ export default function LoginPage(){
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error see later*/action} className="grid gap-2">
+                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error: see later*/action} className="grid gap-2">
                         {
                             lastResult?.success === false &&
                             <p className="text-red-500 text-sm text-right">{lastResult.data.errors[0].msg}</p>
