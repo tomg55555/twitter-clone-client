@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Twotter: The Twitter-Clone Client
 
-## Getting Started
+Benvenuti nel repository del client **Twotter**, un'applicazione ispirata a Twitter sviluppata con **Next.js**. Questo file `README` contiene le istruzioni per avviare l'applicazione in due modi diversi: utilizzando un file ZIP o clonando una repository GitHub. Inoltre, è disponibile una demo live al link sottostante.
 
-First, run the development server:
+### Demo Live
+👉 [Twotter Demo](https://twitter-clone-client-lemon.vercel.app/)
+
+---
+
+## Come clonare la repo?
+
+Esegui [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) con [npm](https://docs.npmjs.com/cli/init)per bootstrappare la repo:
+
+```bash
+npx create-next-app --example https://github.com/tomg55555/twitter-clone-client twotter-client
+```
+
+Next Js 15 utilizza React 19 e molti dei pacchetti non sono ancora aggiornati quindi sicuramente la build fallirà.
+
+****Per eseguire correttamente l'installazione di tutti i pacchetti:****
+
+```bash
+cd twotter client
+```
+e una volta dentro la cartella
+```bash
+npm install --legacy-peer-deps
+```
+A questo punto tutti i pacchetti saranno installati correttamente.
+Per eseguire il client in locale è sufficiente il comando:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+L'accesso avviene su [http://localhost:3000](http://localhost:3000)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Avvio da File ZIP
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Scarica il file ZIP**  
+   Scarica il pacchetto ZIP dell'applicazione dal link fornito o direttamente dal [repository](https://github.com/tomg55555/twitter-clone-client).
 
-## Learn More
+2. **Estrai il file ZIP**  
+   Estrai il contenuto del file ZIP in una directory di tua scelta.
 
-To learn more about Next.js, take a look at the following resources:
+3. **Installa le dipendenze**  
+   Apri un terminale nella directory del progetto estratto ed esegui:
+```bash
+npm install --legacy-peer-deps
+```
+A questo punto tutti i pacchetti saranno installati correttamente.
+Per eseguire il client in locale è sufficiente il comando:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev
+```
+L'accesso avviene su [http://localhost:3000](http://localhost:3000)
