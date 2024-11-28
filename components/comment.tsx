@@ -58,8 +58,7 @@ export function Comment( { postId } : CommentPage ){
     return(
        <>
            {/* eslint-disable-next-line */}
-           <form
-               key={form.key} id={form.id} name={form.name} onSubmit={form.onSubmit} action={/*@ts-expect-error:later*/action}
+           <form key={form.key} id={form.id} name={form.name} onSubmit={form.onSubmit} action={/*@ts-ignore*/action}
                ref={ref}
                className="grid gap-2 p-6"
            >
