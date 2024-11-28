@@ -56,3 +56,28 @@ Per eseguire il client in locale è sufficiente il comando:
 npm run dev
 ```
 L'accesso avviene su [http://localhost:3000](http://localhost:3000)
+
+---
+
+
+ ## Alcune considerazioni
+
+1. **Durata delle sessioni**
+Non ho avuto modo di investigare approfonditamente ma sia dal client su NextJs che su Postman ho notato che una volta effettuato il login di un utente le sessioni durano una decina di minuti al massimo.
+
+2. **Inconsistenza in alcune risposte di alcuni endpoint**
+Alcuni ednpoint riproducono risposte inconsistenti: ad esempio http://staging.iakta.net:8000/api/postDetail/[postId]
+fornisce due risposte totalmente diverse se al post sono associati dei commenti o meno, in un caso restituisce un oggetto con i dettagli sul post, nell'altro un array contentente i commenti senza fornire informazioni sul post. 
+
+3. **Formato della data** 
+Ho preferito elaborare la data mostrando quanto tempo fa è stato pubblicato il post o il commento piuttosto che formattarla in base alla timezone locale.
+
+4. **Campi testuali limitati nei post ma diversamente nelle risposte**
+Ho notato che c'è una incostistenza tra l'invio di un messaggio e il testo ottenuto da http://staging.iakta.net:8000/api/posts. Nel primo caso apparentemente non c'è una limitazione al numero di caratteri (Ho avuto problemi solo fino a 20k caratteri) inviabili ma nella risposta sono limitati a 100.
+Dato che non esiste un modo consistente per ottenere il messaggio non troncato (se commento quel messaggio perdo l'accesso al testo completo per il rpoblema descritto al punto 2) ho deciso di limitare anche l'invio dei messaggi a 100 caratteri.
+
+5. **Inserimento delle immagini**
+Ho implementato un sistema per linkare anche delle immagini. Purtroppo visto il limite dei 100 caratteri non è possibile linkare immagini con url lunghi. Si potrebbero utilizzare delle librerie per accorciare gli url ma credo esuli dagli scopi dello sviluppo del client e non ho approfondito.
+
+6. **Mobile first** 
+Per lo sviluppo del design ho adottato un approccio mobile-first ma ultimamnte senza un emulatore ho notato che su alcuni browser e devices molto piccoli (<350px) ci possono esseere alcuni errori di compatibilità. Per motivi di tempo e software (mi sono limitato a Chrome e Chrome DevTool ) per testare a disposizione non ho approfondito.
