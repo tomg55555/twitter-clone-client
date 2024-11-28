@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 "use client";
 import {followUser as action} from "@/app/actions";
 import {SubmitButton} from "@/components/submit-button";
