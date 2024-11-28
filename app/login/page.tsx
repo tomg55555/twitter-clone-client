@@ -44,6 +44,7 @@ export default function LoginPage(){
 
     });
 
+    // noinspection TypeScriptValidateTypes
     return(
         <main className="h-screen md:-mt-10 w-full flex items-center justify-center p-4">
             <Card className="max-w-lg w-full rounded-xl bg-blue-50">
@@ -59,7 +60,8 @@ export default function LoginPage(){
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error: see later*/action} className="grid gap-2">
+                    {/* eslint-disable-next-line */}
+                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error*/action} className="grid gap-2">
                         {
                             lastResult?.success === false &&
                             <p className="text-red-500 text-sm text-right">{lastResult.data.errors[0].msg}</p>
