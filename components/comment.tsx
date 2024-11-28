@@ -21,6 +21,7 @@ export function Comment( { postId } : CommentPage ){
 
     const [lastResult, action] = useActionState(withIdSendComment, null);
     const [form, fields] = useForm({
+        // @ts-nocheck
         lastResult,
         onValidate({formData}){
             return parseWithZod(formData, {schema: commentSchema})
