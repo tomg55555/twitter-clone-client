@@ -34,6 +34,7 @@ export default function LoginPage(){
 
     const [lastResult, action] = useActionState(login, null);
     const [form, fields] = useForm({
+        //@ts-expect-error see later
         lastResult,
         onValidate({formData}){
             return parseWithZod(formData, {schema: loginSchema})

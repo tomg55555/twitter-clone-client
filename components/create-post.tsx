@@ -21,6 +21,7 @@ export function CreatePost({ activeUser } : PageProps ){
 
     const [lastResult, action] = useActionState(createMessage, null);
     const [form, fields] = useForm({
+        //@ts-expect-error see later
         lastResult,
         onValidate({formData}){
             return parseWithZod(formData, {schema: messageSchema})

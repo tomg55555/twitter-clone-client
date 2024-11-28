@@ -6,9 +6,6 @@ import { PartyPopper } from "lucide-react";
 import Confetti from 'react-confetti'
 import {useLayoutEffect, useRef, useState} from "react";
 
-
-
-
 export default function SuccessPage(){
 
     const [height, setHeight] = useState(0)

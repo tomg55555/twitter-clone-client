@@ -17,6 +17,7 @@ export default function SignUpPage(){
 
     const [lastResult, action] = useActionState(createUser, null);
     const [form, fields] = useForm({
+        //@ts-expect-error see later
         lastResult,
         onValidate({formData}){
             return parseWithZod(formData, {schema: userSchema})
