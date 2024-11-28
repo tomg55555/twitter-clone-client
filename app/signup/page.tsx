@@ -44,7 +44,7 @@ export default function SignUpPage(){
                 </CardHeader>
                 <CardContent>
                     {/* eslint-disable-next-line */}
-                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-expect-error: see later*/action} className="grid gap-2">
+                    <form onSubmit={form.onSubmit} id={form.id} key={form.key} name={form.name} action={/*@ts-ignore*/action} className="grid gap-2">
                         {lastResult?.success === false &&
                             <p className="text-red-500 text-sm text-right">{lastResult.message}</p>
                         }
