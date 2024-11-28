@@ -28,7 +28,7 @@ export function DeleteComment({commentId, postId}: iAppProps){
     return(
         <>
             {/* eslint-disable-next-line */}
-            <form id={"delete-comment"} action={/*@ts-ignore*/withParamsDeleteComment} onSubmit={()=>{
+            <form id={"delete-comment"} action={/*@ts-expect-error:later*/withParamsDeleteComment} onSubmit={()=>{
                 setOpen(false);
                 setTimeout(() => {
                     router.push("/");
