@@ -21,6 +21,7 @@ export default async function Home() {
     await connection();
 
     const cookieStore = await cookies();
+    //@ts-expect-error: see later
     const user = cookieStore.get({name: "token"});
     const currentUser:{name:string, value:string} | undefined = cookieStore.get("user" as never)
     if(!user) redirect("/login");
