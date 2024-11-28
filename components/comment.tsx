@@ -56,12 +56,13 @@ export function Comment( { postId } : CommentPage ){
 
 
     return(
-        <form
-            {/* eslint-disable-next-line */}
-            key={form.key} id={form.id} name={form.name} onSubmit={form.onSubmit} action={/*@ts-ignore*/action}
-            ref={ref}
-            className="grid gap-2 p-6"
-        >
+       <>
+           {/* eslint-disable-next-line */}
+           <form
+               key={form.key} id={form.id} name={form.name} onSubmit={form.onSubmit} action={/*@ts-ignore*/action}
+               ref={ref}
+               className="grid gap-2 p-6"
+           >
 
             <textarea
                 autoFocus
@@ -74,13 +75,14 @@ export function Comment( { postId } : CommentPage ){
                 onChange={(e) => setText(e.target.value)}
                 value={text}
             />
-            <div className="flex items-center justify-between">
-                <div className="mt-2 text-muted-foreground text-sm">
-                    <CircularProgress percentage={text.length*100/maxLength} />
-                </div>
-                <SubmitButton text="Commenta"/>
-            </div>
+               <div className="flex items-center justify-between">
+                   <div className="mt-2 text-muted-foreground text-sm">
+                       <CircularProgress percentage={text.length*100/maxLength} />
+                   </div>
+                   <SubmitButton text="Commenta"/>
+               </div>
 
-        </form>
+           </form>
+       </>
     )
 }
