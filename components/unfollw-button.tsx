@@ -21,7 +21,7 @@ export function UnfollowButton({userId, className}:UnfollowProps){
                     router.push("/");
                 }, 500);
             }}>
-                <SubmitButton text={"unfollow"} variant={"outline"} className={cn("px-6 py-1.5 text-sm h-min", className as string)}/>
+                <SubmitButton text={"unfollow"} variant={"outline"} className={cn("px-6 py-1.5 text-sm h-min flex items-center", className as string)}/>
             </form>
         </>
     )
