@@ -47,7 +47,6 @@ export function Comment( { postId } : CommentPage ){
 
         growers.forEach((grower) => {
             const textarea = grower.querySelector("textarea");
-            //@ts-expect-error:later
             textarea?.addEventListener("input", () => {
                 grower.dataset.replicatedValue = textarea.value;
             });
