@@ -13,12 +13,15 @@ export function FollowButton({userId, text, className}:UnfollowProps){
     const router = useRouter();
 
     return (
-        <form action={action.bind(null, userId) as string} onSubmit={()=>{
-            setTimeout(() => {
-                router.push("/");
-            }, 500);
-        }}>
-            <SubmitButton text={text || "segui"} className={cn("px-6 py-1.5 text-sm h-min", className as string)}/>
-        </form>
+        <>
+            {/* eslint-disable-next-line */}
+            <form action={/*@ts-ignore*/action.bind(null, userId)} onSubmit={()=>{
+                setTimeout(() => {
+                    router.push("/");
+                }, 500);
+            }}>
+                <SubmitButton text={text || "segui"} className={cn("px-6 py-1.5 text-sm h-min", className as string)}/>
+            </form>
+        </>
     )
 }
