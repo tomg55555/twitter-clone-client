@@ -46,9 +46,10 @@ export function Comment( { postId } : CommentPage ){
         const growers = document.querySelectorAll(".grow-wrap");
 
         growers.forEach((grower) => {
+            //@ts-expect-error:later
             const textarea = grower.querySelector("textarea");
             textarea.addEventListener("input", () => {
-
+                //@ts-expect-error:later
                 grower.dataset.replicatedValue = textarea.value;
             });
         });
