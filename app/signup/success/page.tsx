@@ -13,7 +13,9 @@ export default function SuccessPage(){
     const ref = useRef(null)
 
     useLayoutEffect(() => {
+        //@ts-expect-error: see later
         setHeight(ref.current.clientHeight);
+        //@ts-expect-error: see later
         setWidth(ref.current.clientWidth)
     }, [])
 
