@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function timeSince(dateISO) {
+export function timeSince(dateISO:Date) {
   const now = new Date();
   const postDate = new Date(dateISO);
   const diffInSeconds = Math.floor((now - postDate) / 1000);
