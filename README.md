@@ -9,7 +9,7 @@ Benvenuti nel repository del client **Twotter**, un'applicazione ispirata a Twit
 
 ## Come clonare la repo?
 
-Esegui [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) con [npm](https://docs.npmjs.com/cli/init)per bootstrappare la repo:
+Esegui [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) con [npm](https://docs.npmjs.com/cli/init) per bootstrappare la repo:
 
 ```bash
 npx create-next-app --example https://github.com/tomg55555/twitter-clone-client twotter-client
