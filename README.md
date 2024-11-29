@@ -20,7 +20,7 @@ Next Js 15 utilizza React 19 e molti dei pacchetti non sono ancora aggiornati qu
 ****Per eseguire correttamente l'installazione di tutti i pacchetti:****
 
 ```bash
-cd twotter client
+cd twotter-client
 ```
 e una volta dentro la cartella
 ```bash
@@ -77,7 +77,7 @@ Ho notato che c'è una incostistenza tra l'invio di un messaggio e il testo otte
 Dato che non esiste un modo consistente per ottenere il messaggio non troncato (se commento quel messaggio perdo l'accesso al testo completo per il rpoblema descritto al punto 2) ho deciso di limitare anche l'invio dei messaggi a 100 caratteri.
 
 5. **Inserimento delle immagini**
-Ho implementato un sistema per linkare anche delle immagini. Purtroppo visto il limite dei 100 caratteri non è possibile linkare immagini con url lunghi. Si potrebbero utilizzare delle librerie per accorciare gli url ma credo esuli dagli scopi dello sviluppo del client e non ho approfondito.
+Ho implementato un sistema per linkare anche delle immagini. Purtroppo visto il limite dei 100 caratteri non è possibile linkare immagini con url lunghi. Si potrebbero utilizzare delle librerie per accorciare gli url ma credo esuli dagli scopi dello sviluppo del client e non ho approfondito. Gli url devono essere specifici di una immmagine o non funzioneranno. I video al momento non sono supportati.
 
 6. **Mobile first** 
 Per lo sviluppo del design ho adottato un approccio mobile-first ma ultimamnte senza un emulatore ho notato che su alcuni browser e devices molto piccoli (<350px) ci possono esseere alcuni errori di compatibilità. Per motivi di tempo e software (mi sono limitato a Chrome e Chrome DevTool ) per testare a disposizione non ho approfondito.
